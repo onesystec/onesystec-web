@@ -2,10 +2,19 @@
    OneSystec — configuración rápida
    ========================================================= */
 const CONFIG = {
-  LOGIN_URL: "#",                       // ← pon aquí el link de tu app de inicio de sesión
-  CONTACT_EMAIL: "onesystecsrl@gmail.com",
-  DEFAULT_LANG: "it",                   // idioma por defecto: italiano
-  LANGS: ["it", "es", "en"]
+  LOGIN_URL: "#",                         // ← link de tu app de inicio de sesión
+  CONTACT_EMAIL: "info@onesystec.com",
+  WHATSAPP: "393923802297",               // número sin "+" ni espacios
+  WHATSAPP_DISPLAY: "+39 392 380 2297",
+  SOCIAL: {                               // ← pega aquí los links de las redes
+    facebook: "#",
+    instagram: "#",
+    youtube: "#"
+  },
+  DEFAULT_LANG: "it",                     // idioma por defecto: italiano
+  DEFAULT_THEME: "night",                 // night · day · pastel
+  LANGS: ["it", "es", "en"],
+  THEMES: ["night", "day", "pastel"]
 };
 
 (() => {
@@ -13,12 +22,27 @@ const CONFIG = {
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Config links ---------- */
+  /* ---------- Contact links & social icons ---------- */
+  const waHref = () => `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(t("wa.msg"))}`;
   $$(".js-login").forEach(a => {
     a.href = CONFIG.LOGIN_URL;
     if (/^https?:/.test(CONFIG.LOGIN_URL)) a.rel = "noopener";
   });
-  $$(".js-email").forEach(a => { a.href = "mailto:" + CONFIG.CONTACT_EMAIL; a.textContent = CONFIG.CONTACT_EMAIL; });
+  $$(".js-mail").forEach(a => a.href = "mailto:" + CONFIG.CONTACT_EMAIL);
+  $$(".js-mail-text").forEach(el => el.textContent = CONFIG.CONTACT_EMAIL);
+  $$(".js-phone-text").forEach(el => el.textContent = CONFIG.WHATSAPP_DISPLAY);
+  const nets = [
+    ["facebook", "Facebook", CONFIG.SOCIAL.facebook],
+    ["instagram", "Instagram", CONFIG.SOCIAL.instagram],
+    ["youtube", "YouTube", CONFIG.SOCIAL.youtube],
+    ["whatsapp", "WhatsApp", null],
+    ["email", "Email", "mailto:" + CONFIG.CONTACT_EMAIL]
+  ];
+  $$("[data-social]").forEach(box => {
+    box.innerHTML = nets.map(([id, label, url]) =>
+      `<a data-net="${id}" ${id === "whatsapp" ? 'class="js-wa"' : `href="${url}"`} ${/^https?:/.test(url || "https") && id !== "email" ? 'target="_blank" rel="noopener"' : ""} aria-label="${label}" title="${label}"><svg viewBox="0 0 24 24"><use href="#i-${id}"/></svg></a>`
+    ).join("");
+  });
   $("#year").textContent = new Date().getFullYear();
 
   /* ---------- i18n ---------- */
@@ -40,7 +64,9 @@ const CONFIG = {
         if (typeof v === "string") el.textContent = v;
       });
       $(".lang__cur").textContent = lang.toUpperCase();
-      $$(".lang__menu button").forEach(b => b.setAttribute("aria-current", b.dataset.lang === lang));
+      $$(".js-wa").forEach(a => a.href = waHref());
+      $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
+      $$("[data-lang]").forEach(b => b.setAttribute("aria-current", b.dataset.lang === lang));
       startRotator();
       document.body.classList.remove("switching");
     };
@@ -49,19 +75,39 @@ const CONFIG = {
     else run();
   }
 
-  const langBox = $("#lang");
-  const langBtn = $(".lang__btn", langBox);
-  langBtn.addEventListener("click", e => {
-    e.stopPropagation();
-    const open = langBox.classList.toggle("open");
-    langBtn.setAttribute("aria-expanded", open);
+  /* dropdowns */
+  function dropdown(box, onPick) {
+    const btn = $(".dd__btn", box);
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      $$(".dd.open").forEach(d => d !== box && d.classList.remove("open"));
+      const open = box.classList.toggle("open");
+      btn.setAttribute("aria-expanded", open);
+    });
+    $$(".dd__menu button", box).forEach(b => b.addEventListener("click", () => {
+      box.classList.remove("open"); btn.setAttribute("aria-expanded", false); onPick(b);
+    }));
+  }
+  document.addEventListener("click", () => $$(".dd.open").forEach(d => d.classList.remove("open")));
+  document.addEventListener("keydown", e => { if (e.key === "Escape") $$(".dd.open").forEach(d => d.classList.remove("open")); });
+
+  dropdown($("#lang"), b => { if (b.dataset.lang !== lang) applyLang(b.dataset.lang, true); });
+
+  /* ---------- Theme ---------- */
+  function applyTheme(th) {
+    if (!CONFIG.THEMES.includes(th)) th = CONFIG.DEFAULT_THEME;
+    document.documentElement.setAttribute("data-theme", th);
+    $$("[data-theme-set]").forEach(b => b.setAttribute("aria-current", b.dataset.themeSet === th));
+    const meta = $('meta[name="theme-color"]');
+    if (meta) meta.content = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  }
+  let savedTheme = null;
+  try { savedTheme = localStorage.getItem("osx-theme"); } catch (e) {}
+  applyTheme(savedTheme || CONFIG.DEFAULT_THEME);
+  dropdown($("#theme"), b => {
+    applyTheme(b.dataset.themeSet);
+    try { localStorage.setItem("osx-theme", b.dataset.themeSet); } catch (e) {}
   });
-  $$(".lang__menu button").forEach(b => b.addEventListener("click", () => {
-    langBox.classList.remove("open");
-    langBtn.setAttribute("aria-expanded", false);
-    if (b.dataset.lang !== lang) applyLang(b.dataset.lang, true);
-  }));
-  document.addEventListener("click", () => langBox.classList.remove("open"));
 
   /* ---------- Typing rotator ---------- */
   let rotTimer;
@@ -82,7 +128,7 @@ const CONFIG = {
   }
 
   /* ---------- Nav ---------- */
-  const nav = $(".nav");
+  const nav = $(".header");
   const onScroll = () => nav.classList.toggle("is-scrolled", scrollY > 20);
   addEventListener("scroll", onScroll, { passive: true }); onScroll();
 
