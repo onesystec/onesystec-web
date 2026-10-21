@@ -6,15 +6,20 @@ const CONFIG = {
   CONTACT_EMAIL: "info@onesystec.com",
   WHATSAPP: "393923802297",               // número sin "+" ni espacios
   WHATSAPP_DISPLAY: "+39 392 380 2297",
+  TEAM_WHATSAPP: {                        // ← número de cada persona del equipo (sin "+")
+    it: "393923802297",                   //   atención en italiano
+    es: "",                               //   atención en español (vacío = número general)
+    en: ""                                //   atención en inglés  (vacío = número general)
+  },
   SOCIAL: {                               // ← pega aquí los links de las redes
     facebook: "#",
     instagram: "#",
     youtube: "#"
   },
   DEFAULT_LANG: "it",                     // idioma por defecto: italiano
-  DEFAULT_THEME: "day",                   // day · pastel · night
+  DEFAULT_THEME: "day",                   // day · night
   LANGS: ["it", "es", "en"],
-  THEMES: ["day", "pastel", "night"]
+  THEMES: ["day", "night"]
 };
 
 (() => {
@@ -23,7 +28,7 @@ const CONFIG = {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- Contact links & social icons ---------- */
-  const waHref = () => `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(t("wa.msg"))}`;
+  const waHref = (num, msgLang) => `https://wa.me/${num || CONFIG.WHATSAPP}?text=${encodeURIComponent((msgLang && I18N[msgLang]["wa.msg"]) || t("wa.msg"))}`;
   $$(".js-login").forEach(a => {
     a.href = CONFIG.LOGIN_URL;
     if (/^https?:/.test(CONFIG.LOGIN_URL)) a.rel = "noopener";
@@ -64,7 +69,7 @@ const CONFIG = {
         if (typeof v === "string") el.textContent = v;
       });
       $(".lang__cur").textContent = lang.toUpperCase();
-      $$(".js-wa").forEach(a => a.href = waHref());
+      $$(".js-wa").forEach(a => a.href = waHref(a.dataset.member && CONFIG.TEAM_WHATSAPP[a.dataset.member], a.dataset.member));
       $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
       $$("[data-lang]").forEach(b => b.setAttribute("aria-current", b.dataset.lang === lang));
       startRotator();
@@ -93,20 +98,25 @@ const CONFIG = {
 
   dropdown($("#lang"), b => { if (b.dataset.lang !== lang) applyLang(b.dataset.lang, true); });
 
-  /* ---------- Theme ---------- */
+  /* ---------- Theme (interruptor día / noche) ---------- */
+  const sw = $("#themeSwitch");
+  let netColors = null;
   function applyTheme(th) {
     if (!CONFIG.THEMES.includes(th)) th = CONFIG.DEFAULT_THEME;
     document.documentElement.setAttribute("data-theme", th);
-    $$("[data-theme-set]").forEach(b => b.setAttribute("aria-current", b.dataset.themeSet === th));
+    sw.setAttribute("aria-checked", th === "night");
+    const cs = getComputedStyle(document.documentElement);
     const meta = $('meta[name="theme-color"]');
-    if (meta) meta.content = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+    if (meta) meta.content = th === "night" ? "#080b26" : "#eef1fc";
+    netColors = { line: cs.getPropertyValue("--net-line").trim(), dot: cs.getPropertyValue("--net-dot").trim(), hover: cs.getPropertyValue("--net-hover").trim() };
   }
   let savedTheme = null;
   try { savedTheme = localStorage.getItem("osx-theme"); } catch (e) {}
   applyTheme(savedTheme || CONFIG.DEFAULT_THEME);
-  dropdown($("#theme"), b => {
-    applyTheme(b.dataset.themeSet);
-    try { localStorage.setItem("osx-theme", b.dataset.themeSet); } catch (e) {}
+  sw.addEventListener("click", () => {
+    const next = document.documentElement.getAttribute("data-theme") === "night" ? "day" : "night";
+    applyTheme(next);
+    try { localStorage.setItem("osx-theme", next); } catch (e) {}
   });
 
   /* ---------- Typing rotator ---------- */
@@ -204,10 +214,6 @@ const CONFIG = {
       clearTimeout(timer);
       if (!paused && !reduced) timer = setTimeout(() => go(idx + 1), interval);
     }
-    c.addEventListener("mouseenter", () => { paused = true; clearTimeout(timer); });
-    c.addEventListener("mouseleave", () => { paused = false; go(idx); });
-    $(".carousel__nav--prev", c)?.addEventListener("click", () => go(idx - 1, true));
-    $(".carousel__nav--next", c)?.addEventListener("click", () => go(idx + 1, true));
 
     // swipe
     let sx = null;
@@ -262,6 +268,9 @@ const CONFIG = {
   addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
   function draw() {
     ctx.clearRect(0, 0, W, H);
+    const nc = netColors || { line: "120,140,255", dot: "150,170,255", hover: "34,195,238" };
+    const night = document.documentElement.getAttribute("data-theme") === "night";
+    const k = night ? { line: .35, hover: .6, dot: .85, r: 1.6 } : { line: .3, hover: .55, dot: .55, r: 1.4 };
     for (const p of pts) {
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
@@ -271,12 +280,12 @@ const CONFIG = {
       const a = pts[i];
       for (let j = i + 1; j < pts.length; j++) {
         const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < 130) { ctx.strokeStyle = `rgba(110,130,255,${(1 - d / 130) * .35})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        if (d < 130) { ctx.strokeStyle = `rgba(${nc.line},${(1 - d / 130) * k.line})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
       }
       const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-      if (dm < 180) { ctx.strokeStyle = `rgba(34,195,238,${(1 - dm / 180) * .6})`; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
-      ctx.fillStyle = i % 3 ? "rgba(139,160,255,.8)" : "rgba(34,195,238,.9)";
-      ctx.beginPath(); ctx.arc(a.x, a.y, 1.6, 0, Math.PI * 2); ctx.fill();
+      if (dm < 180) { ctx.strokeStyle = `rgba(${nc.hover},${(1 - dm / 180) * k.hover})`; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
+      ctx.fillStyle = i % 3 ? `rgba(${nc.dot},${k.dot})` : `rgba(${nc.hover},${k.dot})`;
+      ctx.beginPath(); ctx.arc(a.x, a.y, k.r, 0, Math.PI * 2); ctx.fill();
     }
     requestAnimationFrame(draw);
   }

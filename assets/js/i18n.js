@@ -2,7 +2,7 @@
    Para cambiar un texto: busca la clave aquí y edítala en los 3 idiomas. */
 window.I18N = {
   it: {
-    "theme.label": "Sfondo", "theme.night": "Notte", "theme.day": "Giorno", "theme.pastel": "Pastello", "wa.msg": "Ciao OneSystec, vorrei avere informazioni.",
+    "theme.label": "Modalità notte", "wa.msg": "Ciao OneSystec, vorrei avere informazioni.",
     "nav.home": "Home", "nav.services": "Servizi", "nav.platform": "Piattaforma", "nav.about": "Chi siamo", "nav.contact": "Contatti", "nav.login": "Accedi",
     "hero.eyebrow": "Tecnologia · Innovazione · Integrazione",
     "hero.title1": "Un ecosistema.",
@@ -90,9 +90,9 @@ window.I18N = {
     "team.kicker": "Il team",
     "team.title1": "Parla con il team",
     "team.sub": "Persone reali, pronte ad ascoltarti. Scrivici e ti rispondiamo in pochi minuti.",
-    "team.r1": "Fondatore · Strategia e clienti",
-    "team.r2": "Web, app e social media",
-    "team.r3": "Sistemi, GPS e supporto",
+    "team.rit": "Assistenza in italiano",
+    "team.res": "Assistenza in spagnolo",
+    "team.ren": "Assistenza in inglese",
     "team.online": "Online",
     "team.fast": "Risponde in pochi minuti",
     "team.chat": "Scrivici",
@@ -121,7 +121,7 @@ window.I18N = {
   },
 
   es: {
-    "theme.label": "Fondo", "theme.night": "Noche", "theme.day": "Día", "theme.pastel": "Pastel", "wa.msg": "Hola OneSystec, quisiera información.",
+    "theme.label": "Modo noche", "wa.msg": "Hola OneSystec, quisiera información.",
     "nav.home": "Inicio", "nav.services": "Servicios", "nav.platform": "Plataforma", "nav.about": "Quiénes somos", "nav.contact": "Contacto", "nav.login": "Iniciar sesión",
     "hero.eyebrow": "Tecnología · Innovación · Integración",
     "hero.title1": "Un ecosistema.",
@@ -209,9 +209,9 @@ window.I18N = {
     "team.kicker": "El equipo",
     "team.title1": "Habla con el equipo",
     "team.sub": "Personas reales, listas para escucharte. Escríbenos y te respondemos en minutos.",
-    "team.r1": "Fundador · Estrategia y clientes",
-    "team.r2": "Web, apps y redes sociales",
-    "team.r3": "Sistemas, GPS y soporte",
+    "team.rit": "Atención en italiano",
+    "team.res": "Atención en español",
+    "team.ren": "Atención en inglés",
     "team.online": "En línea",
     "team.fast": "Responde en minutos",
     "team.chat": "Escríbenos",
@@ -240,7 +240,7 @@ window.I18N = {
   },
 
   en: {
-    "theme.label": "Background", "theme.night": "Night", "theme.day": "Day", "theme.pastel": "Pastel", "wa.msg": "Hi OneSystec, I would like some information.",
+    "theme.label": "Night mode", "wa.msg": "Hi OneSystec, I would like some information.",
     "nav.home": "Home", "nav.services": "Services", "nav.platform": "Platform", "nav.about": "About us", "nav.contact": "Contact", "nav.login": "Log in",
     "hero.eyebrow": "Technology · Innovation · Integration",
     "hero.title1": "One ecosystem.",
@@ -328,9 +328,9 @@ window.I18N = {
     "team.kicker": "The team",
     "team.title1": "Meet the team at",
     "team.sub": "Real people, ready to listen. Message us and we'll reply within minutes.",
-    "team.r1": "Founder · Strategy and clients",
-    "team.r2": "Web, apps and social media",
-    "team.r3": "Systems, GPS and support",
+    "team.rit": "Support in Italian",
+    "team.res": "Support in Spanish",
+    "team.ren": "Support in English",
     "team.online": "Online",
     "team.fast": "Replies within minutes",
     "team.chat": "Message us",

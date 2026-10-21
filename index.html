@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/styles.css">
   <script>/* aplica tema e indica que hay JS antes de pintar */
-    (function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("osx-theme");if(t)d.setAttribute("data-theme",t)}catch(e){}})();
+    (function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("osx-theme");if(t==="night")d.setAttribute("data-theme","night")}catch(e){}})();
   </script>
 </head>
 <body>
@@ -58,16 +58,12 @@
         </nav>
 
         <div class="nav__actions">
-          <div class="dd" id="theme">
-            <button class="dd__btn dd__btn--icon" aria-haspopup="true" aria-expanded="false" data-i18n-aria="theme.label" aria-label="Sfondo">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-            </button>
-            <ul class="dd__menu" role="menu">
-              <li><button data-theme-set="day" role="menuitem"><i class="swatch swatch--day"></i><span data-i18n="theme.day">Giorno</span></button></li>
-              <li><button data-theme-set="pastel" role="menuitem"><i class="swatch swatch--pastel"></i><span data-i18n="theme.pastel">Pastello</span></button></li>
-              <li><button data-theme-set="night" role="menuitem"><i class="swatch swatch--night"></i><span data-i18n="theme.night">Notte</span></button></li>
-            </ul>
-          </div>
+          <button class="theme-switch" id="themeSwitch" role="switch" aria-checked="false" data-i18n-aria="theme.label" aria-label="Modalità notte">
+            <span class="theme-switch__knob">
+              <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+              <svg class="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg>
+            </span>
+          </button>
           <div class="dd" id="lang">
             <button class="dd__btn" aria-haspopup="true" aria-expanded="false" aria-label="Language">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
@@ -374,19 +370,18 @@
           <p class="pill" data-i18n="gallery.kicker">Per chi</p>
           <h2 data-i18n="gallery.title">Soluzioni per aziende, professionisti e persone</h2>
         </header>
-        <div class="carousel carousel--wide reveal" data-interval="5200">
+        <div class="carousel carousel--wide reveal" data-interval="4500">
           <div class="carousel__track">
-            <figure class="slide"><img src="assets/img/team.webp" alt="" loading="lazy">
+            <figure class="slide"><img src="assets/img/per-chi-aziende.webp" alt="" loading="lazy">
               <figcaption><b data-i18n="gallery.g1t">Per le aziende</b><span data-i18n="gallery.g1d">Ottimizza i processi e integra tutte le aree.</span></figcaption></figure>
-            <figure class="slide"><img src="assets/img/fleet.webp" alt="" loading="lazy">
+            <figure class="slide"><img src="assets/img/per-chi-professionisti.webp" alt="" loading="lazy">
               <figcaption><b data-i18n="gallery.g2t">Per i professionisti</b><span data-i18n="gallery.g2d">Strumenti digitali per lavorare e organizzarti meglio.</span></figcaption></figure>
-            <figure class="slide"><img src="assets/img/platform.webp" alt="" loading="lazy">
+            <figure class="slide"><img src="assets/img/per-chi-clienti.webp" alt="" loading="lazy">
               <figcaption><b data-i18n="gallery.g3t">Per il cliente finale</b><span data-i18n="gallery.g3d">Segui spedizioni, prenota l'officina o noleggia un veicolo.</span></figcaption></figure>
-            <figure class="slide"><img src="assets/img/meeting.webp" alt="" loading="lazy">
+            <figure class="slide"><img src="assets/img/per-chi-insieme.webp" alt="" loading="lazy">
               <figcaption><b data-i18n="gallery.g4t">Insieme a te</b><span data-i18n="gallery.g4d">Ti accompagniamo dall'idea al risultato.</span></figcaption></figure>
           </div>
-          <button class="carousel__nav carousel__nav--prev" aria-label="Previous">‹</button>
-          <button class="carousel__nav carousel__nav--next" aria-label="Next">›</button>
+          <div class="carousel__progress"><span></span></div>
           <div class="carousel__dots"></div>
         </div>
       </div>
@@ -419,27 +414,28 @@
           <p data-i18n="team.sub">Persone reali, pronte ad ascoltarti. Scrivici e ti rispondiamo in pochi minuti.</p>
         </header>
         <div class="team">
-          <!-- Fotos: guardar en assets/img/team/ como persona-1.jpg, persona-2.jpg, persona-3.jpg -->
+          <!-- Fotos: assets/img/team/persona-1.jpg (italiano), persona-2.jpg (español), persona-3.jpg (english).
+               Números de WhatsApp de cada uno: CONFIG.TEAM_WHATSAPP en assets/js/main.js -->
           <article class="member reveal">
-            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-1.jpg" alt="" onerror="this.remove()"><i class="member__on"></i></div>
+            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-1.jpg" alt="" onerror="this.remove()"><span class="member__flag" title="Italiano"><svg viewBox="0 0 24 24"><rect x="0" y="0" width="8" height="24" fill="#009246"/><rect x="8" y="0" width="8" height="24" fill="#fff"/><rect x="16" y="0" width="8" height="24" fill="#ce2b37"/></svg></span></div>
             <h3 class="member__name">Nome Cognome</h3>
-            <p class="member__role" data-i18n="team.r1">Fondatore · Strategia e clienti</p>
+            <p class="member__role" data-i18n="team.rit">Assistenza in italiano</p>
             <ul class="member__meta"><li><span class="pulse"></span><span data-i18n="team.online">Online</span></li><li data-i18n="team.fast">Risponde in pochi minuti</li></ul>
-            <a class="btn btn--wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
+            <a class="btn btn--wa js-wa" data-member="it" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
           </article>
           <article class="member reveal">
-            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-2.jpg" alt="" onerror="this.remove()"><i class="member__on"></i></div>
+            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-2.jpg" alt="" onerror="this.remove()"><span class="member__flag" title="Español"><svg viewBox="0 0 24 24"><rect x="0" y="0" width="24" height="6" fill="#c60b1e"/><rect x="0" y="6" width="24" height="12" fill="#ffc400"/><rect x="0" y="18" width="24" height="6" fill="#c60b1e"/></svg></span></div>
             <h3 class="member__name">Nome Cognome</h3>
-            <p class="member__role" data-i18n="team.r2">Web, app e social media</p>
+            <p class="member__role" data-i18n="team.res">Assistenza in italiano</p>
             <ul class="member__meta"><li><span class="pulse"></span><span data-i18n="team.online">Online</span></li><li data-i18n="team.fast">Risponde in pochi minuti</li></ul>
-            <a class="btn btn--wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
+            <a class="btn btn--wa js-wa" data-member="es" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
           </article>
           <article class="member reveal">
-            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-3.jpg" alt="" onerror="this.remove()"><i class="member__on"></i></div>
+            <div class="member__photo"><span class="member__ini">OS</span><img src="assets/img/team/persona-3.jpg" alt="" onerror="this.remove()"><span class="member__flag" title="English"><svg viewBox="0 0 24 24"><rect width="24" height="24" fill="#012169"/><path d="M0 0L24 24M24 0L0 24" stroke="#fff" stroke-width="5"/><path d="M0 0L24 24M24 0L0 24" stroke="#c8102e" stroke-width="2"/><path d="M12 0V24M0 12H24" stroke="#fff" stroke-width="7"/><path d="M12 0V24M0 12H24" stroke="#c8102e" stroke-width="4"/></svg></span></div>
             <h3 class="member__name">Nome Cognome</h3>
-            <p class="member__role" data-i18n="team.r3">Sistemi, GPS e supporto</p>
+            <p class="member__role" data-i18n="team.ren">Assistenza in italiano</p>
             <ul class="member__meta"><li><span class="pulse"></span><span data-i18n="team.online">Online</span></li><li data-i18n="team.fast">Risponde in pochi minuti</li></ul>
-            <a class="btn btn--wa js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
+            <a class="btn btn--wa js-wa" data-member="en" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="team.chat">Scrivici</span></a>
           </article>
         </div>
       </div>
