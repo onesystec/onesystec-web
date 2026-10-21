@@ -266,29 +266,63 @@ const CONFIG = {
   }
   addEventListener("resize", resize); resize();
   addEventListener("pointermove", e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  let pulse = 0;
   function draw() {
     ctx.clearRect(0, 0, W, H);
     const nc = netColors || { line: "120,140,255", dot: "150,170,255", hover: "34,195,238" };
     const night = document.documentElement.getAttribute("data-theme") === "night";
-    const k = night ? { line: .35, hover: .6, dot: .85, r: 1.6 } : { line: .3, hover: .55, dot: .55, r: 1.4 };
+    const k = night ? { line: .35, hover: .9, dot: .85, r: 1.6, glow: .22 } : { line: .3, hover: .75, dot: .55, r: 1.4, glow: .14 };
+    const R = 210;                                   // radio de alcance del cursor
+    pulse = (pulse + 0.02) % 1;
+    const near = [];
     for (const p of pts) {
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
       if (p.y < 0 || p.y > H) p.vy *= -1;
+      // leve atracción hacia el cursor
+      const dx = mouse.x - p.x, dy = mouse.y - p.y, dm = Math.hypot(dx, dy);
+      p.dm = dm;
+      if (dm < R && dm > 30) { p.x += dx / dm * .25; p.y += dy / dm * .25; }
+      if (dm < R) near.push(p);
     }
     for (let i = 0; i < pts.length; i++) {
       const a = pts[i];
       for (let j = i + 1; j < pts.length; j++) {
         const b = pts[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d < 130) { ctx.strokeStyle = `rgba(${nc.line},${(1 - d / 130) * k.line})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+        if (d < 130) {
+          const boost = (a.dm < R && b.dm < R) ? 1.8 : 1;
+          ctx.strokeStyle = `rgba(${nc.line},${Math.min(1, (1 - d / 130) * k.line * boost)})`; ctx.lineWidth = boost > 1 ? 1.2 : 1;
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
       }
-      const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
-      if (dm < 180) { ctx.strokeStyle = `rgba(${nc.hover},${(1 - dm / 180) * k.hover})`; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
-      ctx.fillStyle = i % 3 ? `rgba(${nc.dot},${k.dot})` : `rgba(${nc.hover},${k.dot})`;
-      ctx.beginPath(); ctx.arc(a.x, a.y, k.r, 0, Math.PI * 2); ctx.fill();
+    }
+    // líneas al cursor (circuito)
+    for (const a of near) {
+      const t = 1 - a.dm / R;
+      ctx.strokeStyle = `rgba(${nc.hover},${t * k.hover})`; ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+      // pulso de datos viajando por la línea
+      const px = a.x + (mouse.x - a.x) * pulse, py = a.y + (mouse.y - a.y) * pulse;
+      ctx.fillStyle = `rgba(${nc.hover},${t * k.hover})`;
+      ctx.beginPath(); ctx.arc(px, py, 1.6, 0, Math.PI * 2); ctx.fill();
+    }
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], hot = a.dm < R, t = hot ? 1 - a.dm / R : 0;
+      ctx.fillStyle = hot ? `rgba(${nc.hover},${Math.min(1, k.dot + t)})` : (i % 3 ? `rgba(${nc.dot},${k.dot})` : `rgba(${nc.hover},${k.dot})`);
+      ctx.beginPath(); ctx.arc(a.x, a.y, k.r + t * 1.8, 0, Math.PI * 2); ctx.fill();
+    }
+    // halo en el cursor
+    if (mouse.x > -500) {
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 120);
+      g.addColorStop(0, `rgba(${nc.hover},${k.glow})`); g.addColorStop(1, `rgba(${nc.hover},0)`);
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 120, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = `rgba(${nc.hover},${k.hover * .5})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(mouse.x, mouse.y, 6 + pulse * 18, 0, Math.PI * 2); ctx.globalAlpha = 1 - pulse; ctx.stroke(); ctx.globalAlpha = 1;
     }
     requestAnimationFrame(draw);
   }
+  addEventListener("pointerleave", () => { mouse.x = mouse.y = -999; });
+  document.addEventListener("mouseleave", () => { mouse.x = mouse.y = -999; });
   if (!reduced) draw();
 
   applyLang(lang, false);

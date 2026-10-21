@@ -253,14 +253,12 @@ h3,h4{font-weight:700}
 .clients{padding:56px 0 20px}
 .clients__title{text-align:center;color:var(--muted);font-family:var(--font-head);font-weight:600;font-size:.95rem;margin-bottom:26px}
 .marquee{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
-.marquee__track{display:flex;gap:70px;padding-right:70px;width:max-content;align-items:center;animation:marquee 30s linear infinite}
+.marquee__track{display:flex;gap:90px;padding-right:90px;width:max-content;align-items:center;animation:marquee 30s linear infinite}
 .marquee:hover .marquee__track{animation-play-state:paused}
 @keyframes marquee{to{transform:translateX(-50%)}}
 .client{height:56px;display:flex;align-items:center}
-.client img{max-height:56px;width:auto;filter:grayscale(1);opacity:.7;transition:filter .3s,opacity .3s}
-.client img:hover{filter:none;opacity:1}
-.client--ph span{display:flex;align-items:center;gap:10px;font-family:var(--font-head);font-weight:800;font-size:1.25rem;letter-spacing:.02em;color:var(--muted);opacity:.65}
-.client--ph span::before{content:"";width:30px;height:30px;border-radius:9px;background:var(--grad);opacity:.6}
+.client__logo{display:block;height:42px;background:var(--muted);-webkit-mask-position:center;mask-position:center;-webkit-mask-size:contain;mask-size:contain;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;opacity:.38;transition:opacity .3s,background .3s}
+.client__logo:hover{opacity:.75;background:var(--accent-text)}
 
 /* ---------- Sections ---------- */
 .section{padding:100px 0;position:relative}
