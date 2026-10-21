@@ -7,9 +7,9 @@ const CONFIG = {
   WHATSAPP: "393923802297",               // número sin "+" ni espacios
   WHATSAPP_DISPLAY: "+39 392 380 2297",
   TEAM_WHATSAPP: {                        // ← número de cada persona del equipo (sin "+")
-    it: "393923802297",                   //   atención en italiano
-    es: "",                               //   atención en español (vacío = número general)
-    en: ""                                //   atención en inglés  (vacío = número general)
+    es: "393514824263",                   //   Yan Gamonal · atención en español
+    it: "393923802297",                   //   Emerson Gamonal · atención en italiano
+    en: "393342016624"                    //   Mauro Agostinelli · atención en inglés
   },
   SOCIAL: {                               // ← pega aquí los links de las redes
     facebook: "#",
