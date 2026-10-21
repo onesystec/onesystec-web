@@ -3,6 +3,7 @@
    Brand: navy #0b0e3a · cyan #22c3ee · blue #4f6bff · violet #8b2cf5
    =========================================================== */
 :root{
+  color-scheme:dark;
   --bg:#060920;
   --bg-2:#0b1032;
   --surface:rgba(255,255,255,.04);
