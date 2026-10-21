@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OneSystec · Tecnologia, Innovazione e Integrazione</title>
+  <meta name="description" content="OneSystec: un ecosistema digitale che unisce flotta, GPS, logistica, assistente virtuale e gestione aziendale in un'unica piattaforma.">
+  <meta name="theme-color" content="#070a24">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-mark.svg">
+  <meta property="og:title" content="OneSystec · Tecnologia che cresce con te">
+  <meta property="og:description" content="Flotta, GPS, logistica e assistente virtuale in un'unica piattaforma.">
+  <meta property="og:image" content="assets/img/platform.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <canvas id="net" aria-hidden="true"></canvas>
+
+  <!-- ============ HEADER ============ -->
+  <header class="nav" id="top">
+    <div class="wrap nav__inner">
+      <a href="#inicio" class="brand" aria-label="OneSystec">
+        <img src="assets/img/logo-mark.svg" alt="" width="46" height="38">
+        <span class="brand__text"><b>ONE</b><i>SYSTEC</i></span>
+      </a>
+
+      <nav class="nav__links" id="menu">
+        <a href="#inicio" data-i18n="nav.home">Home</a>
+        <a href="#servicios" data-i18n="nav.services">Servizi</a>
+        <a href="#plataforma" data-i18n="nav.platform">Piattaforma</a>
+        <a href="#nosotros" data-i18n="nav.about">Chi siamo</a>
+        <a href="#contacto" data-i18n="nav.contact">Contatti</a>
+      </nav>
+
+      <div class="nav__actions">
+        <div class="lang" id="lang">
+          <button class="lang__btn" aria-haspopup="true" aria-expanded="false" aria-label="Language">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+            <span class="lang__cur">IT</span>
+          </button>
+          <ul class="lang__menu" role="menu">
+            <li><button data-lang="it" role="menuitem">🇮🇹 Italiano</button></li>
+            <li><button data-lang="es" role="menuitem">🇪🇸 Español</button></li>
+            <li><button data-lang="en" role="menuitem">🇬🇧 English</button></li>
+          </ul>
+        </div>
+        <a class="btn btn--primary btn--sm js-login" href="#" data-i18n="nav.login">Accedi</a>
+        <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="glow glow--a"></div><div class="glow glow--b"></div>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow reveal"><span class="dot"></span><span data-i18n="hero.eyebrow">Tecnologia · Innovazione · Integrazione</span></p>
+          <h1 class="reveal">
+            <span data-i18n="hero.title1">Un ecosistema.</span><br>
+            <span class="grad" data-i18n="hero.title2">Tutto il tuo business connesso.</span>
+          </h1>
+          <p class="hero__rotator reveal">
+            <span data-i18n="hero.rot.prefix">Una sola piattaforma per</span>
+            <span class="rotator" id="rotator" aria-live="polite"></span><span class="caret"></span>
+          </p>
+          <p class="lead reveal" data-i18n="hero.lead">Flotta, GPS in tempo reale, logistica, assistente virtuale e gestione aziendale in un unico posto. Software pensato per crescere con te.</p>
+          <div class="hero__cta reveal">
+            <a href="#servicios" class="btn btn--primary"><span data-i18n="hero.cta1">Scopri le soluzioni</span><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#contacto" class="btn btn--ghost" data-i18n="hero.cta2">Richiedi una demo</a>
+          </div>
+          <ul class="hero__chips reveal">
+            <li><i class="ic ic--pin"></i><span data-i18n="hero.chip1">GPS in tempo reale</span></li>
+            <li><i class="ic ic--bot"></i><span data-i18n="hero.chip2">Assistente IA</span></li>
+            <li><i class="ic ic--shield"></i><span data-i18n="hero.chip3">Cloud sicuro</span></li>
+          </ul>
+        </div>
+
+        <!-- Hero auto carousel -->
+        <div class="hero__visual reveal">
+          <div class="device">
+            <div class="device__bar"><i></i><i></i><i></i><span>app.onesystec.com</span></div>
+            <div class="carousel" data-interval="4200" aria-roledescription="carousel">
+              <div class="carousel__track">
+                <figure class="slide"><img src="assets/img/platform.webp" alt="Dashboard OneSystec" loading="eager"><figcaption data-i18n="slides.s1">Dashboard unica per la tua azienda</figcaption></figure>
+                <figure class="slide"><img src="assets/img/team.webp" alt="" loading="lazy"><figcaption data-i18n="slides.s2">Officine, vendite e logistica connesse</figcaption></figure>
+                <figure class="slide"><img src="assets/img/fleet.webp" alt="" loading="lazy"><figcaption data-i18n="slides.s3">Squadre e veicoli in movimento</figcaption></figure>
+                <figure class="slide"><img src="assets/img/meeting.webp" alt="" loading="lazy"><figcaption data-i18n="slides.s4">Al tuo fianco in ogni decisione</figcaption></figure>
+              </div>
+              <div class="carousel__dots"></div>
+              <div class="carousel__progress"><span></span></div>
+            </div>
+          </div>
+          <div class="float float--a">
+            <span class="pulse"></span>
+            <div><b data-i18n="hero.float1t">Veicolo #12</b><small data-i18n="hero.float1s">In viaggio · 64 km/h</small></div>
+          </div>
+          <div class="float float--b">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            <div><b data-i18n="hero.float2t">Consegna confermata</b><small>12:15 · Milano</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track">
+          <span>Fleet</span><span>GPS Tracking</span><span>Logistics</span><span>AI Assistant</span><span>Business</span><span>Garage</span><span>Rent</span><span>Digital</span><span>Cloud</span><span>Cybersecurity</span>
+          <span>Fleet</span><span>GPS Tracking</span><span>Logistics</span><span>AI Assistant</span><span>Business</span><span>Garage</span><span>Rent</span><span>Digital</span><span>Cloud</span><span>Cybersecurity</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="section" id="servicios">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker" data-i18n="services.kicker">// Servizi</p>
+          <h2 data-i18n="services.title">Moduli che si integrano tra loro</h2>
+          <p data-i18n="services.sub">Attiva solo ciò che ti serve. Ogni modulo parla con gli altri, così i dati scorrono senza doppio lavoro.</p>
+        </header>
+
+        <div class="cards">
+          <article class="card reveal" style="--c1:#22c3ee;--c2:#4f6bff">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M3 13l1.5-5A2 2 0 016.4 6.5h11.2a2 2 0 011.9 1.5L21 13v4a1 1 0 01-1 1h-1a2 2 0 01-4 0H9a2 2 0 01-4 0H4a1 1 0 01-1-1z"/><path d="M3 13h18"/></svg></div>
+            <h3 data-i18n="services.fleet.t">Fleet &amp; GPS</h3>
+            <p data-i18n="services.fleet.d">Localizzazione in tempo reale, storico percorsi, consumi, manutenzioni e avvisi per ogni veicolo.</p>
+            <ul class="tags"><li>GPS</li><li data-i18n="tags.alerts">Avvisi</li><li data-i18n="tags.routes">Percorsi</li></ul>
+          </article>
+          <article class="card reveal" style="--c1:#4f6bff;--c2:#8b2cf5">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg></div>
+            <h3 data-i18n="services.logistics.t">Logistics</h3>
+            <p data-i18n="services.logistics.d">Spedizioni, tracciamento, prove di consegna e pianificazione delle rotte per autisti e clienti.</p>
+            <ul class="tags"><li data-i18n="tags.shipments">Spedizioni</li><li>POD</li><li data-i18n="tags.tracking">Tracking</li></ul>
+          </article>
+          <article class="card card--feature reveal" style="--c1:#8b2cf5;--c2:#22c3ee">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 16h6"/></svg></div>
+            <h3 data-i18n="services.ai.t">Assistente virtuale IA</h3>
+            <p data-i18n="services.ai.d">Un assistente che risponde ad autisti e clienti, riassume la giornata e ti avvisa quando qualcosa non va.</p>
+            <ul class="tags"><li>24/7</li><li>Chat</li><li data-i18n="tags.voice">Voce</li></ul>
+            <div class="chat" aria-hidden="true">
+              <p class="chat__q" data-i18n="services.ai.q">Dov'è il camion di Marco?</p>
+              <p class="chat__a" data-i18n="services.ai.a">A 12 km da Bologna, arrivo previsto 14:35 ✓</p>
+            </div>
+          </article>
+          <article class="card reveal" style="--c1:#22c3ee;--c2:#8b2cf5">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M3 12h18"/></svg></div>
+            <h3 data-i18n="services.business.t">Business</h3>
+            <p data-i18n="services.business.d">Clienti, vendite, fatturazione e report in un pannello chiaro, accessibile da qualsiasi dispositivo.</p>
+            <ul class="tags"><li>CRM</li><li data-i18n="tags.billing">Fatture</li><li>Report</li></ul>
+          </article>
+          <article class="card reveal" style="--c1:#4f6bff;--c2:#22c3ee">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
+            <h3 data-i18n="services.garage.t">Garage &amp; Rent</h3>
+            <p data-i18n="services.garage.d">Appuntamenti in officina, ordini di lavoro, ricambi, noleggi e disponibilità dei veicoli.</p>
+            <ul class="tags"><li data-i18n="tags.bookings">Prenotazioni</li><li data-i18n="tags.parts">Ricambi</li></ul>
+          </article>
+          <article class="card reveal" style="--c1:#8b2cf5;--c2:#4f6bff">
+            <div class="card__icon"><svg viewBox="0 0 24 24"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3M13.5 6l-3 12"/></svg></div>
+            <h3 data-i18n="services.digital.t">Digital &amp; App su misura</h3>
+            <p data-i18n="services.digital.d">Siti web, app mobile e integrazioni sviluppate su misura per il tuo modo di lavorare.</p>
+            <ul class="tags"><li>Web</li><li>App</li><li>API</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PLATFORM ============ -->
+    <section class="section section--alt" id="plataforma">
+      <div class="wrap split">
+        <div class="split__copy reveal">
+          <p class="kicker" data-i18n="platform.kicker">// Piattaforma</p>
+          <h2 data-i18n="platform.title">Un account. La tua azienda e i tuoi servizi.</h2>
+          <p data-i18n="platform.sub">Dall'ufficio alla strada: azienda, squadra in movimento e cliente finale vedono le stesse informazioni, aggiornate al secondo.</p>
+          <ul class="checks">
+            <li data-i18n="platform.c1">Mappa live con posizione di ogni veicolo</li>
+            <li data-i18n="platform.c2">Rotte, consegne e conferme dall'app dell'autista</li>
+            <li data-i18n="platform.c3">Notifiche per il cliente in tempo reale</li>
+            <li data-i18n="platform.c4">Backup automatici e accessi protetti</li>
+          </ul>
+          <div class="stats">
+            <div><b class="count" data-to="24" data-suffix="/7">0</b><span data-i18n="stats.s1">Monitoraggio</span></div>
+            <div><b class="count" data-to="6">0</b><span data-i18n="stats.s2">Moduli integrati</span></div>
+            <div><b class="count" data-to="3">0</b><span data-i18n="stats.s3">Lingue</span></div>
+            <div><b class="count" data-to="1">0</b><span data-i18n="stats.s4">Sola piattaforma</span></div>
+          </div>
+        </div>
+
+        <!-- Live map -->
+        <div class="map reveal" aria-label="Mappa GPS dimostrativa">
+          <div class="map__head">
+            <span class="live"><i></i>LIVE</span>
+            <span class="mono" data-i18n="platform.map">Mappa flotta</span>
+            <span class="mono map__clock" id="clock">--:--:--</span>
+          </div>
+          <svg viewBox="0 0 520 380" class="map__svg">
+            <defs>
+              <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="currentColor" stroke-opacity=".08"/></pattern>
+              <linearGradient id="route" x1="0" x2="1"><stop offset="0" stop-color="#22c3ee"/><stop offset="1" stop-color="#8b2cf5"/></linearGradient>
+            </defs>
+            <rect width="520" height="380" fill="url(#grid)"/>
+            <g stroke="currentColor" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linecap="round">
+              <path d="M-10 90 H530"/><path d="M-10 250 H530"/><path d="M120 -10 V390"/><path d="M380 -10 V390"/><path d="M0 380 L260 160 L520 0"/>
+            </g>
+            <path id="p1" d="M60 320 C 120 250, 150 260, 200 200 S 300 110, 360 140 S 450 90, 470 60" fill="none" stroke="url(#route)" stroke-width="4" stroke-linecap="round" class="route"/>
+            <path id="p2" d="M40 70 C 140 90, 160 150, 250 170 S 400 280, 480 320" fill="none" stroke="url(#route)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".7"/>
+            <g class="pin"><circle cx="60" cy="320" r="7" fill="#22c3ee"/><circle cx="60" cy="320" r="7" fill="#22c3ee" class="ring"/></g>
+            <g class="pin"><circle cx="470" cy="60" r="7" fill="#8b2cf5"/><circle cx="470" cy="60" r="7" fill="#8b2cf5" class="ring"/></g>
+            <g class="pin"><circle cx="480" cy="320" r="6" fill="#4f6bff"/></g>
+            <g class="truck">
+              <rect x="-13" y="-8" width="26" height="16" rx="4" fill="#fff"/>
+              <rect x="-11" y="-6" width="14" height="12" rx="2" fill="#4f6bff"/>
+              <rect x="5" y="-6" width="6" height="12" rx="2" fill="#22c3ee"/>
+              <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion>
+            </g>
+            <g class="truck truck--b">
+              <circle r="7" fill="#8b2cf5"/><circle r="3" fill="#fff"/>
+              <animateMotion dur="13s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion>
+            </g>
+          </svg>
+          <div class="map__cards">
+            <div class="mini"><span class="mono">ETA</span><b>14:35</b></div>
+            <div class="mini"><span class="mono" data-i18n="platform.speed">Velocità</span><b><span id="speed">62</span> km/h</b></div>
+            <div class="mini"><span class="mono" data-i18n="platform.stops">Tappe</span><b>3/4</b></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ecosystem orbit -->
+      <div class="wrap orbit-wrap reveal">
+        <div class="orbit" aria-hidden="true">
+          <div class="orbit__core"><img src="assets/img/logo-mark.svg" alt=""></div>
+          <div class="orbit__ring orbit__ring--1">
+            <span style="--a:0deg"><em>Fleet</em></span><span style="--a:120deg"><em>Logistics</em></span><span style="--a:240deg"><em>AI</em></span>
+          </div>
+          <div class="orbit__ring orbit__ring--2">
+            <span style="--a:60deg"><em>Business</em></span><span style="--a:180deg"><em>Garage</em></span><span style="--a:300deg"><em>Rent</em></span>
+          </div>
+        </div>
+        <div class="orbit__copy">
+          <h3 data-i18n="eco.title">Un ecosistema, non un insieme di app</h3>
+          <p data-i18n="eco.text">Ogni modulo ruota attorno allo stesso nucleo: un unico login, un'unica base dati, un'unica esperienza. Aggiungi moduli quando la tua azienda cresce.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY CAROUSEL ============ -->
+    <section class="section" id="galeria">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="kicker" data-i18n="gallery.kicker">// Per chi</p>
+          <h2 data-i18n="gallery.title">Soluzioni per aziende, professionisti e persone</h2>
+        </header>
+        <div class="carousel carousel--wide reveal" data-interval="5200">
+          <div class="carousel__track">
+            <figure class="slide"><img src="assets/img/team.webp" alt="" loading="lazy">
+              <figcaption><b data-i18n="gallery.g1t">Per le aziende</b><span data-i18n="gallery.g1d">Ottimizza i processi e integra tutte le aree.</span></figcaption></figure>
+            <figure class="slide"><img src="assets/img/fleet.webp" alt="" loading="lazy">
+              <figcaption><b data-i18n="gallery.g2t">Per i professionisti</b><span data-i18n="gallery.g2d">Strumenti digitali per lavorare e organizzarti meglio.</span></figcaption></figure>
+            <figure class="slide"><img src="assets/img/platform.webp" alt="" loading="lazy">
+              <figcaption><b data-i18n="gallery.g3t">Per il cliente finale</b><span data-i18n="gallery.g3d">Segui spedizioni, prenota l'officina o noleggia un veicolo.</span></figcaption></figure>
+            <figure class="slide"><img src="assets/img/meeting.webp" alt="" loading="lazy">
+              <figcaption><b data-i18n="gallery.g4t">Insieme a te</b><span data-i18n="gallery.g4d">Ti accompagniamo dall'idea al risultato.</span></figcaption></figure>
+          </div>
+          <button class="carousel__nav carousel__nav--prev" aria-label="Previous">‹</button>
+          <button class="carousel__nav carousel__nav--next" aria-label="Next">›</button>
+          <div class="carousel__dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section section--alt" id="nosotros">
+      <div class="wrap about">
+        <div class="about__copy reveal">
+          <p class="kicker" data-i18n="about.kicker">// Chi siamo</p>
+          <h2 data-i18n="about.title">Una squadra di famiglia con una visione tecnologica</h2>
+          <p data-i18n="about.p1">OneSystec nasce dall'esperienza diretta nel mondo dei trasporti. Abbiamo vissuto ogni giorno i problemi di flotte, autisti e clienti, e abbiamo deciso di costruire gli strumenti che avremmo voluto avere.</p>
+          <p data-i18n="about.p2">Oggi sviluppiamo software, app e soluzioni su misura che uniscono persone, processi e servizi in un'unica piattaforma.</p>
+        </div>
+        <div class="values">
+          <div class="value reveal"><span class="value__n mono">01</span><h4 data-i18n="about.v1t">Tecnologia</h4><p data-i18n="about.v1d">Cloud, GPS e intelligenza artificiale al servizio del lavoro quotidiano.</p></div>
+          <div class="value reveal"><span class="value__n mono">02</span><h4 data-i18n="about.v2t">Innovazione</h4><p data-i18n="about.v2d">Idee di oggi, risultati di domani: miglioriamo il prodotto ogni settimana.</p></div>
+          <div class="value reveal"><span class="value__n mono">03</span><h4 data-i18n="about.v3t">Integrazione</h4><p data-i18n="about.v3d">Tutto connesso: meno strumenti separati, più controllo.</p></div>
+          <div class="value reveal"><span class="value__n mono">04</span><h4 data-i18n="about.v4t">Sicurezza</h4><p data-i18n="about.v4d">Backup, accessi protetti e cura dei dati dei nostri clienti.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contacto">
+      <div class="wrap">
+        <div class="cta reveal">
+          <div class="cta__copy">
+            <p class="kicker" data-i18n="contact.kicker">// Contatti</p>
+            <h2 data-i18n="contact.title">Parliamo del tuo progetto</h2>
+            <p data-i18n="contact.sub">Raccontaci cosa ti serve e ti mostriamo come OneSystec può semplificare la tua giornata.</p>
+            <ul class="contact__list">
+              <li><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><a class="js-email" href="#"></a></li>
+              <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg><span>onesystec.com</span></li>
+            </ul>
+          </div>
+          <form class="form" id="contactForm">
+            <label><span data-i18n="contact.name">Nome</span><input name="name" required autocomplete="name"></label>
+            <label><span data-i18n="contact.email">Email</span><input name="email" type="email" required autocomplete="email"></label>
+            <label><span data-i18n="contact.company">Azienda</span><input name="company" autocomplete="organization"></label>
+            <label><span data-i18n="contact.interest">Mi interessa</span>
+              <select name="interest">
+                <option data-i18n="contact.opt1">Fleet &amp; GPS</option>
+                <option data-i18n="contact.opt2">Logistics</option>
+                <option data-i18n="contact.opt3">Assistente virtuale IA</option>
+                <option data-i18n="contact.opt4">App o sito su misura</option>
+                <option data-i18n="contact.opt5">Altro</option>
+              </select>
+            </label>
+            <label class="full"><span data-i18n="contact.message">Messaggio</span><textarea name="message" rows="4"></textarea></label>
+            <button class="btn btn--primary full" type="submit" data-i18n="contact.send">Invia richiesta</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer__inner">
+      <a href="#inicio" class="brand"><img src="assets/img/logo-mark.svg" alt="" width="40" height="33"><span class="brand__text"><b>ONE</b><i>SYSTEC</i></span></a>
+      <p class="footer__tag mono">TECNOLOGIA, INNOVAZIONE E INTEGRAZIONE</p>
+      <p class="footer__copy">© <span id="year"></span> OneSystec. <span data-i18n="footer.rights">Tutti i diritti riservati.</span></p>
+    </div>
+  </footer>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
