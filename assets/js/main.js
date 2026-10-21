@@ -12,9 +12,9 @@ const CONFIG = {
     youtube: "#"
   },
   DEFAULT_LANG: "it",                     // idioma por defecto: italiano
-  DEFAULT_THEME: "night",                 // night · day · pastel
+  DEFAULT_THEME: "day",                   // day · pastel · night
   LANGS: ["it", "es", "en"],
-  THEMES: ["night", "day", "pastel"]
+  THEMES: ["day", "pastel", "night"]
 };
 
 (() => {
@@ -229,6 +229,10 @@ const CONFIG = {
     speed.textContent = 55 + Math.round(Math.random() * 20);
   }, 1000);
 
+  /* ---------- Clients marquee: duplicar para bucle continuo ---------- */
+  const ct = $("#clientsTrack");
+  if (ct) ct.innerHTML += ct.innerHTML.replace(/<li /g, '<li aria-hidden="true" ');
+
   /* ---------- Contact form → email ---------- */
   $("#contactForm").addEventListener("submit", e => {
     e.preventDefault();
@@ -237,6 +241,7 @@ const CONFIG = {
       `${t("contact.name")}: ${f.get("name")}`,
       `${t("contact.email")}: ${f.get("email")}`,
       `${t("contact.company")}: ${f.get("company") || "-"}`,
+      `${t("contact.phone")}: ${f.get("phone") || "-"}`,
       `${t("contact.interest")}: ${f.get("interest")}`,
       "", f.get("message") || ""
     ].join("\n");
