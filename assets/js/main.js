@@ -2,7 +2,7 @@
    OneSystec — configuración rápida
    ========================================================= */
 const CONFIG = {
-  LOGIN_URL: "#",                         // ← link de tu app de inicio de sesión
+  LOGIN_URL: "https://one-system-front-two.vercel.app/#acceso", // ← app de inicio de sesión
   CONTACT_EMAIL: "info@onesystec.com",
   WHATSAPP: "393923802297",               // número sin "+" ni espacios
   WHATSAPP_DISPLAY: "+39 392 380 2297",
