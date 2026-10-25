@@ -101,7 +101,7 @@ h3,h4{font-weight:700}
 .btn--primary{background:var(--grad-loop);background-size:200% 100%;color:#fff;box-shadow:0 12px 30px -12px rgba(79,92,231,.8);animation:gradmove 6s linear infinite}
 .btn--primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(139,44,245,.8)}
 .btn--ghost{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.btn--ghost svg{fill:currentColor;stroke:none;width:14px;height:14px}
+.btn--ghost svg.i-play{fill:currentColor;stroke:none;width:14px;height:14px}
 .btn--ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
 .btn--sm{padding:10px 20px;font-size:.88rem}
 .btn--wa{width:100%;background:var(--wa);color:#fff;box-shadow:0 10px 24px -12px rgba(37,211,102,.9)}
@@ -485,6 +485,141 @@ html:not(.js) .chat p{opacity:1;transform:none}
 [data-i18n]{transition:opacity .25s}
 body.switching [data-i18n]{opacity:0}
 
+/* =========================================================
+   Páginas internas, OneTrack y precios
+   ========================================================= */
+.nav__ot{display:inline-flex;align-items:center;gap:6px}
+.nav__ot em{font-style:normal;font-size:.62rem;font-weight:700;letter-spacing:.06em;padding:2px 6px;border-radius:999px;background:var(--grad);color:#fff}
+.nav__links a[aria-current="page"]{color:var(--text)}
+.nav__links a[aria-current="page"]::after{width:100%}
+
+.page-hero{padding:150px 0 70px}
+.page-hero__grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr;gap:48px;align-items:center;text-align:center}
+.page-hero__copy{display:flex;flex-direction:column;align-items:center;min-width:0}
+.page-hero h1{font-size:clamp(2.1rem,4.2vw,3.4rem);max-width:860px}
+.page-hero .lead{max-width:640px}
+.page-hero--split .page-hero__grid{grid-template-columns:1.05fr 1fr;text-align:left}
+.page-hero--split .page-hero__copy{align-items:flex-start}
+.page-hero__visual{min-width:0}
+.crumbs{display:flex;gap:8px;align-items:center;font-size:.86rem;color:var(--muted);margin-bottom:14px}
+.crumbs a:hover{color:var(--accent-text)}
+.crumbs span:last-child{color:var(--text);font-weight:600}
+.hero__cta--left{justify-content:flex-start}
+.page-hero:not(.page-hero--split) .hero__cta--left{justify-content:center}
+.btn--auto{width:auto}
+.pill__tag{font-size:.62rem;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--grad);color:#fff;letter-spacing:.06em}
+.pill:has(.pill__tag)::before{display:none}
+.price-from{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin:6px 0 22px;color:var(--muted);font-weight:600}
+.price-from b{font-family:var(--font-head);font-size:1.9rem;font-weight:800;color:var(--text);font-variant-numeric:tabular-nums}
+.more{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-top:34px}
+.note{text-align:center;color:var(--muted);font-size:.92rem;margin-top:22px}
+
+/* Teaser OneTrack en la home */
+.ot-teaser{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center}
+.ot-teaser__copy{min-width:0}
+.ot-teaser__copy>p:not(.pill):not(.price-from){color:var(--muted);font-size:1.1rem}
+.ot-teaser .checks{margin:22px 0 18px}
+
+/* Funciones */
+.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.feat{padding:24px;border-radius:var(--radius);background:var(--surface);border:1px solid var(--line);transition:transform .3s,border-color .3s,box-shadow .3s}
+.feat:hover{transform:translateY(-4px);border-color:rgba(108,92,231,.45);box-shadow:var(--shadow-sm)}
+.feat__icon,.tile__icon{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:var(--pill-bg);color:var(--accent-text);margin-bottom:14px;flex:none}
+.feat__icon svg,.tile__icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3,.tile h3{font-size:1.05rem;margin-bottom:6px}
+.feat p,.tile p{color:var(--muted);font-size:.96rem}
+
+/* Tiles (su misura) */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.tile{padding:26px;border-radius:var(--radius);background:var(--surface-2);border:1px solid var(--line)}
+
+/* Planes */
+.plans{display:grid;gap:20px;align-items:stretch}
+.plans--4{grid-template-columns:repeat(4,1fr)}
+.plan{position:relative;display:flex;flex-direction:column;gap:14px;padding:28px 24px 24px;border-radius:22px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s}
+.plan::before{content:"";position:absolute;inset:0 0 auto;height:5px;border-radius:22px 22px 0 0;background:var(--pc)}
+.plan:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.plan--hot{border-color:color-mix(in srgb,var(--pc) 55%,transparent);background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 9%,transparent),transparent 45%),var(--surface)}
+.plan__head h3{font-size:1.35rem}
+.plan__tagline{color:var(--muted);font-size:.94rem;min-height:2.6em}
+.plan__price{display:flex;flex-direction:column;gap:2px;color:var(--muted);font-weight:600;font-size:.92rem;min-height:5.6rem;justify-content:flex-end}
+.plan__price small{font-size:.8rem}
+.plan__price b{font-family:var(--font-head);font-size:2.2rem;font-weight:800;color:var(--pc);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.plan__hw{display:grid;grid-template-columns:1fr;gap:2px;padding:12px 14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);font-size:.86rem;color:var(--muted)}
+.plan__hw b{font-family:var(--font-head);color:var(--text);font-size:1.15rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.plan__hw small{font-size:.78rem}
+.plan__list{display:grid;gap:9px;margin-bottom:6px}
+.plan__list li{display:flex;gap:10px;align-items:flex-start;font-weight:600;font-size:.95rem}
+.plan__list li::before{content:"";flex:0 0 18px;height:18px;margin-top:3px;border-radius:50%;background:var(--pc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.4' stroke-linecap='round'%3E%3Cpath d='M6 12.5l4 3.5 8-8'/%3E%3C/svg%3E") center/11px no-repeat}
+.plan__cta{margin-top:auto;width:100%}
+.included{display:flex;flex-wrap:wrap;justify-content:center;gap:12px 28px;margin-top:30px;font-weight:600}
+.included li{display:flex;align-items:center;gap:10px}
+.included svg{width:22px;height:22px;fill:none;stroke:var(--accent-text);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Tabla comparativa */
+.table-wrap{overflow-x:auto;border-radius:20px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow-sm);max-width:980px;margin-inline:auto}
+.cmp{width:100%;border-collapse:collapse;min-width:620px}
+.cmp th,.cmp td{padding:13px 16px;text-align:center;border-bottom:1px solid var(--line)}
+.cmp tbody tr:last-child th,.cmp tbody tr:last-child td{border-bottom:0}
+.cmp thead th{font-family:var(--font-head);font-size:.98rem;background:var(--surface-2)}
+.cmp thead th small{display:block;font-weight:600;color:var(--accent-text);font-variant-numeric:tabular-nums}
+.cmp th[scope="row"],.cmp thead th:first-child{text-align:left;font-weight:600}
+.cmp tbody tr:hover{background:var(--surface-2)}
+.yes,.no{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:middle}
+.yes{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round'%3E%3Cpath d='M6 12.5l4 3.5 8-8'/%3E%3C/svg%3E") center/12px no-repeat,linear-gradient(120deg,#22c3ee,#8b2cf5)}
+.no{width:14px;height:2px;border-radius:2px;background:var(--line)}
+
+/* Calculadora */
+.calc{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.calc__copy{min-width:0}
+.calc__copy>p:not(.pill){color:var(--muted);font-size:1.1rem}
+.calc__box{display:grid;gap:18px;padding:30px;border-radius:24px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);min-width:0}
+.calc__plans{border:0;display:flex;flex-wrap:wrap;gap:8px}
+.calc__plans legend,.calc__qty>span{font-size:.9rem;font-weight:600;margin-bottom:8px}
+.calc__qty{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;background:var(--input-bg);overflow:hidden}
+.qty input{width:70px;text-align:center;font:inherit;font-family:var(--font-head);font-weight:700;font-size:1.1rem;color:var(--text);border:0;background:transparent;padding:8px 0;-moz-appearance:textfield}
+.qty input::-webkit-outer-spin-button,.qty input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qty__btn{width:42px;height:42px;font-size:1.3rem;font-weight:700;color:var(--accent-text)}
+.qty__btn:hover{background:var(--pill-bg)}
+.calc__range{width:100%;accent-color:#6c5ce7}
+.calc__out{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.calc__out div:first-child{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.calc__out div{padding:14px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line);min-width:0}
+.calc__out span{display:block;font-size:.8rem;color:var(--muted);font-weight:600}
+.calc__out b{display:block;font-family:var(--font-head);font-size:1.15rem;font-variant-numeric:tabular-nums;margin-top:4px;overflow-wrap:anywhere}
+.calc__out div:first-child b{font-size:2rem;margin:0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.calc__note{color:var(--muted);font-size:.85rem}
+
+/* Pasos en línea + dispositivo */
+.steps--line .step{background:var(--surface)}
+.hw{display:flex;gap:18px;align-items:flex-start;max-width:860px;margin:34px auto 0;padding:22px 24px;border-radius:20px;background:var(--surface-2);border:1px dashed var(--line)}
+.hw h3{font-size:1.05rem;margin-bottom:4px}
+.hw p{color:var(--muted)}
+
+/* Módulos con precio */
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.mod{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;padding:20px 22px;border-radius:20px;background:var(--surface);border:1px solid var(--line);transition:transform .3s,box-shadow .3s}
+.mod:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm)}
+.mod .card__icon{margin:0;width:46px;height:46px}
+.mod .card__icon svg{width:22px;height:22px}
+.mod h3{font-size:1.05rem}
+.mod p{color:var(--muted);font-size:.9rem}
+.mod__price{text-align:right;color:var(--muted);font-size:.8rem;font-weight:600;white-space:nowrap}
+.mod__price b{display:block;font-family:var(--font-head);font-size:1.35rem;color:var(--text);font-variant-numeric:tabular-nums}
+
+/* Banner OneTrack en precios */
+.ot-banner{display:grid;grid-template-columns:auto 1fr auto auto;gap:20px;align-items:center;padding:24px 28px;border-radius:24px;color:#fff;background:linear-gradient(120deg,#1a1f6b,#4b3fd6 55%,#8b2cf5);box-shadow:0 26px 60px -30px rgba(80,60,220,.8);transition:transform .3s}
+.ot-banner:hover{transform:translateY(-4px)}
+.ot-banner__icon,.ot-banner__go{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;background:rgba(255,255,255,.14)}
+.ot-banner__go{width:44px;height:44px;border-radius:50%}
+.ot-banner svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ot-banner__copy b{display:block;font-family:var(--font-head);font-size:1.2rem}
+.ot-banner__copy span{opacity:.85}
+.ot-banner__price{text-align:right;white-space:nowrap}
+.ot-banner__price b{font-family:var(--font-head);font-size:1.8rem}
+.ot-banner__price small{opacity:.85;margin-left:4px}
+
 /* ---------- Responsive ---------- */
 @media (max-width:1100px){
   .nav__links{position:fixed;left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));top:124px;flex-direction:column;gap:4px;padding:14px;border-radius:18px;background:var(--menu-bg);border:1px solid var(--line);box-shadow:var(--shadow);opacity:0;transform:translateY(-10px);pointer-events:none;transition:.25s}
@@ -495,6 +630,15 @@ body.switching [data-i18n]{opacity:0}
   .burger{display:flex}
 }
 @media (max-width:960px){
+  .page-hero--split .page-hero__grid,.ot-teaser,.calc{grid-template-columns:1fr}
+  .page-hero--split .page-hero__grid{text-align:center}
+  .page-hero--split .page-hero__copy{align-items:center}
+  .page-hero--split .hero__cta--left{justify-content:center}
+  .plans--4,.feats,.tiles{grid-template-columns:1fr 1fr}
+  .mods{grid-template-columns:1fr 1fr}
+  .ot-banner{grid-template-columns:auto 1fr;}
+  .ot-banner__price{text-align:left;grid-column:2}
+  .ot-banner__go{display:none}
   .split,.band__grid,.about,.contact,.faq{grid-template-columns:1fr}
   .cards,.steps{grid-template-columns:1fr 1fr}
   .team{grid-template-columns:1fr 1fr}
@@ -505,6 +649,14 @@ body.switching [data-i18n]{opacity:0}
   .float--b{right:-8px;bottom:110px}
 }
 @media (max-width:640px){
+  .page-hero{padding:130px 0 50px}
+  .plans--4,.feats,.tiles,.mods{grid-template-columns:1fr}
+  .calc__out{grid-template-columns:1fr}
+  .calc__box{padding:22px 18px}
+  .mod{grid-template-columns:auto 1fr;}
+  .mod__price{grid-column:2;text-align:left}
+  .ot-banner{padding:20px;gap:14px}
+  .hw{flex-direction:column}
   .topbar__contact span{display:none}
   .topbar__contact{gap:14px}
   .nav__inner{padding:0 8px 0 12px;height:58px}

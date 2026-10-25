@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="it" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>OneTrack GPS · OneSystec</title>
+  <meta name="description" content="OneTrack: localizzatore GPS per veicoli da 9,90 €/mese. Piani Basic, Pro, Driver ID e Security con app e piattaforma web.">
+  <meta name="theme-color" content="#eef1fc">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-mark.svg">
+  <meta property="og:title" content="OneTrack GPS · OneSystec">
+  <meta property="og:description" content="OneTrack: localizzatore GPS per veicoli da 9,90 €/mese. Piani Basic, Pro, Driver ID e Security con app e piattaforma web.">
+  <meta property="og:image" content="https://onesystec.com/assets/img/platform.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>/* aplica tema e indica que hay JS antes de pintar */
+    (function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("osx-theme");if(t==="night")d.setAttribute("data-theme","night")}catch(e){}})();
+  </script>
+</head>
+<body data-page="onetrack">
+  <div id="site-header"></div>
+
+  <main>
+    <!-- ============ CABECERA DE PÁGINA ============ -->
+    <section class="page-hero sky page-hero--split">
+      <div class="sky__aurora" aria-hidden="true"></div>
+      <div class="cloud cloud--l" aria-hidden="true"></div>
+      <div class="cloud cloud--r" aria-hidden="true"></div>
+      <div class="wrap page-hero__grid">
+        <div class="page-hero__copy">
+          <nav class="crumbs reveal" aria-label="Breadcrumb"><a href="/" data-i18n="nav.home">Home</a><span>›</span><span data-i18n="nav.onetrack"></span></nav>
+          <p class="pill reveal" data-i18n="ph.onetrack.kicker"></p>
+          <h1 class="reveal"><span data-i18n="ph.onetrack.title1"></span> <span class="grad" data-i18n="ph.onetrack.title2"></span></h1>
+          <p class="lead reveal" data-i18n="ph.onetrack.lead"></p>
+          <p class="price-from reveal"><span data-i18n="price.from">da</span> <b>9,90 €</b> <span data-i18n="price.perVehicle">/mese per veicolo</span></p><div class="hero__cta hero__cta--left reveal"><a href="#piani" class="btn btn--primary"><span data-i18n="cta.plans">Vedi i piani</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><a href="#calcolatore" class="btn btn--ghost"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg><span data-i18n="otHome.cta2">Calcola il preventivo</span></a></div>
+        </div>
+        <div class="page-hero__visual reveal">        <div class="map screen" aria-label="Mappa GPS dimostrativa">
+          <div class="map__head">
+            <span class="live"><i></i>LIVE</span>
+            <span class="mono" data-i18n="platform.map">Mappa flotta</span>
+            <span class="mono map__clock" id="clock">--:--:--</span>
+          </div>
+          <svg viewBox="0 0 520 380" class="map__svg">
+            <defs>
+              <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="currentColor" stroke-opacity=".08"/></pattern>
+              <linearGradient id="route" x1="0" x2="1"><stop offset="0" stop-color="#22c3ee"/><stop offset="1" stop-color="#8b2cf5"/></linearGradient>
+            </defs>
+            <rect width="520" height="380" fill="url(#grid)"/>
+            <g stroke="currentColor" stroke-opacity=".12" stroke-width="10" fill="none" stroke-linecap="round">
+              <path d="M-10 90 H530"/><path d="M-10 250 H530"/><path d="M120 -10 V390"/><path d="M380 -10 V390"/><path d="M0 380 L260 160 L520 0"/>
+            </g>
+            <path id="p1" d="M60 320 C 120 250, 150 260, 200 200 S 300 110, 360 140 S 450 90, 470 60" fill="none" stroke="url(#route)" stroke-width="4" stroke-linecap="round" class="route"/>
+            <path id="p2" d="M40 70 C 140 90, 160 150, 250 170 S 400 280, 480 320" fill="none" stroke="url(#route)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" opacity=".7"/>
+            <g><circle cx="60" cy="320" r="7" fill="#22c3ee"/><circle cx="60" cy="320" r="7" fill="#22c3ee" class="ring"/></g>
+            <g><circle cx="470" cy="60" r="7" fill="#8b2cf5"/><circle cx="470" cy="60" r="7" fill="#8b2cf5" class="ring"/></g>
+            <g><circle cx="480" cy="320" r="6" fill="#4f6bff"/></g>
+            <g class="truck">
+              <rect x="-13" y="-8" width="26" height="16" rx="4" fill="#fff"/>
+              <rect x="-11" y="-6" width="14" height="12" rx="2" fill="#4f6bff"/>
+              <rect x="5" y="-6" width="6" height="12" rx="2" fill="#22c3ee"/>
+              <animateMotion dur="9s" repeatCount="indefinite" rotate="auto"><mpath href="#p1"/></animateMotion>
+            </g>
+            <g class="truck">
+              <circle r="7" fill="#8b2cf5"/><circle r="3" fill="#fff"/>
+              <animateMotion dur="13s" repeatCount="indefinite"><mpath href="#p2"/></animateMotion>
+            </g>
+          </svg>
+          <div class="map__cards">
+            <div class="mini"><span class="mono">ETA</span><b>14:35</b></div>
+            <div class="mini"><span class="mono" data-i18n="platform.speed">Velocità</span><b><span id="speed">62</span> km/h</b></div>
+            <div class="mini"><span class="mono" data-i18n="platform.stops">Tappe</span><b>3/4</b></div>
+          </div>
+        </div>
+</div>
+      </div>
+    </section>
+
+    <!-- ============ FUNCIONES ============ -->
+    <section class="section" id="funzioni">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="pill" data-i18n="ot.feat.kicker">Funzioni</p>
+          <h2 data-i18n="ot.feat.title">Tutto quello che serve per controllare la flotta</h2>
+          <p data-i18n="ot.feat.sub">Dall'auto aziendale al camion: vedi dove si trova ogni veicolo, cosa ha fatto e chi lo guidava.</p>
+        </header>
+        <div class="feats">
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-7.2 7-12a7 7 0 10-14 0c0 4.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><h3 data-i18n="ot.feat.post"></h3><p data-i18n="ot.feat.posd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7a3.5 3.5 0 000-7H9a3.5 3.5 0 010-7h7"/></svg></span><h3 data-i18n="ot.feat.histt"></h3><p data-i18n="ot.feat.histd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7z" stroke-dasharray="3 3"/><circle cx="12" cy="11" r="2"/></svg></span><h3 data-i18n="ot.feat.fencet"></h3><p data-i18n="ot.feat.fenced"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0112 0c0 7 3 9 3 9H3s3-2 3-9M10 21h4"/></svg></span><h3 data-i18n="ot.feat.alertst"></h3><p data-i18n="ot.feat.alertsd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3 data-i18n="ot.feat.reportst"></h3><p data-i18n="ot.feat.reportsd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 00-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 005.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></span><h3 data-i18n="ot.feat.maintt"></h3><p data-i18n="ot.feat.maintd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="11" r="2.2"/><path d="M6 16c.6-1.6 1.7-2.4 3-2.4s2.4.8 3 2.4M15 10h3M15 13h3"/></svg></span><h3 data-i18n="ot.feat.drivert"></h3><p data-i18n="ot.feat.driverd"></p></article>
+          <article class="feat reveal"><span class="feat__icon"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></span><h3 data-i18n="ot.feat.blockt"></h3><p data-i18n="ot.feat.blockd"></p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PIANI ============ -->
+    <section class="section section--tint" id="piani">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="pill" data-i18n="ot.plans.kicker">Piani OneTrack</p>
+          <h2 data-i18n="ot.plans.title">Un canone per veicolo, senza sorprese</h2>
+          <p data-i18n="ot.plans.sub">Scegli il piano per ogni veicolo. Il dispositivo e l'installazione si pagano una sola volta.</p>
+        </header>
+        <div class="plans plans--4">
+          <article class="plan reveal" style="--pc:#22c3ee">
+            <header class="plan__head">
+              <h3>Basic</h3>
+              <p class="plan__tagline" data-i18n="ot.p.basic.tag"></p>
+            </header>
+            <p class="plan__price"><b>9,90 €</b><span data-i18n="price.perVehicleShort">/mese · veicolo</span></p>
+            <p class="plan__hw"><span data-i18n="ot.hw">Dispositivo + installazione</span><b>199–229 €</b><small data-i18n="ot.once">una tantum</small></p>
+            <ul class="plan__list"><li data-i18n="ot.f.pos"></li><li data-i18n="ot.f.km"></li><li data-i18n="ot.f.fence"></li></ul>
+            <a class="btn btn--primary plan__cta js-wa" data-wa-plan="OneTrack Basic" href="#" target="_blank" rel="noopener"><span data-i18n="ot.ask">Richiedi questo piano</span></a>
+          </article>
+          <article class="plan reveal plan--hot" style="--pc:#4f6bff">
+            <header class="plan__head">
+              <h3>Pro</h3>
+              <p class="plan__tagline" data-i18n="ot.p.pro.tag"></p>
+            </header>
+            <p class="plan__price"><b>14,90 €</b><span data-i18n="price.perVehicleShort">/mese · veicolo</span></p>
+            <p class="plan__hw"><span data-i18n="ot.hw">Dispositivo + installazione</span><b>229–269 €</b><small data-i18n="ot.once">una tantum</small></p>
+            <ul class="plan__list"><li data-i18n="ot.f.allBasic"></li><li data-i18n="ot.f.ign"></li><li data-i18n="ot.f.reports"></li></ul>
+            <a class="btn btn--primary plan__cta js-wa" data-wa-plan="OneTrack Pro" href="#" target="_blank" rel="noopener"><span data-i18n="ot.ask">Richiedi questo piano</span></a>
+          </article>
+          <article class="plan reveal" style="--pc:#6c5ce7">
+            <header class="plan__head">
+              <h3>Driver ID</h3>
+              <p class="plan__tagline" data-i18n="ot.p.driver.tag"></p>
+            </header>
+            <p class="plan__price"><b>19,90 €</b><span data-i18n="price.perVehicleShort">/mese · veicolo</span></p>
+            <p class="plan__hw"><span data-i18n="ot.hw">Dispositivo + installazione</span><b>299–329 €</b><small data-i18n="ot.once">una tantum</small></p>
+            <ul class="plan__list"><li data-i18n="ot.f.allPro"></li><li data-i18n="ot.f.rfid"></li><li data-i18n="ot.f.driverId"></li></ul>
+            <a class="btn btn--primary plan__cta js-wa" data-wa-plan="OneTrack Driver ID" href="#" target="_blank" rel="noopener"><span data-i18n="ot.ask">Richiedi questo piano</span></a>
+          </article>
+          <article class="plan reveal" style="--pc:#8b2cf5">
+            <header class="plan__head">
+              <h3>Security</h3>
+              <p class="plan__tagline" data-i18n="ot.p.security.tag"></p>
+            </header>
+            <p class="plan__price"><b>24,90 €</b><span data-i18n="price.perVehicleShort">/mese · veicolo</span></p>
+            <p class="plan__hw"><span data-i18n="ot.hw">Dispositivo + installazione</span><b>349–399 €</b><small data-i18n="ot.once">una tantum</small></p>
+            <ul class="plan__list"><li data-i18n="ot.f.allDriver"></li><li data-i18n="ot.f.relay"></li><li data-i18n="ot.f.block"></li></ul>
+            <a class="btn btn--primary plan__cta js-wa" data-wa-plan="OneTrack Security" href="#" target="_blank" rel="noopener"><span data-i18n="ot.ask">Richiedi questo piano</span></a>
+          </article>
+        </div>
+        <ul class="included reveal">
+          <li><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span data-i18n="ot.inc.app">App e piattaforma web</span></li>
+          <li><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7z"/><rect x="10" y="11" width="6" height="6" rx="1"/></svg><span data-i18n="ot.inc.sim">SIM e dati secondo contratto</span></li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></svg><span data-i18n="ot.inc.support">Configurazione e supporto</span></li>
+        </ul>
+        <p class="note reveal" data-i18n="ot.plans.note">Prezzi IVA esclusa. Canone mensile per veicolo; dispositivo e installazione con pagamento unico per veicolo.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONFRONTO ============ -->
+    <section class="section" id="confronto">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="pill" data-i18n="ot.table.kicker">Confronto</p>
+          <h2 data-i18n="ot.table.title">Cosa include ogni piano</h2>
+        </header>
+        <div class="table-wrap reveal"><table class="cmp">
+            <thead><tr><th scope="col" data-i18n="ot.table.feature">Funzione</th><th scope="col">Basic<small>9,90 €</small></th><th scope="col">Pro<small>14,90 €</small></th><th scope="col">Driver ID<small>19,90 €</small></th><th scope="col">Security<small>24,90 €</small></th></tr></thead>
+            <tbody><tr><th scope="row" data-i18n="ot.f.pos"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.km"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.fence"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.ign"></th><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.reports"></th><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.rfid"></th><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.driverId"></th><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.relay"></th><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.f.block"></th><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="no" aria-label="—"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.inc.app"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.inc.sim"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr><tr><th scope="row" data-i18n="ot.inc.support"></th><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td><td><span class="yes" aria-label="✓"></span></td></tr></tbody>
+          </table></div>
+      </div>
+    </section>
+
+    <!-- ============ CALCOLATORE ============ -->
+    <section class="section section--tint" id="calcolatore">
+      <div class="wrap calc">
+        <div class="calc__copy reveal">
+          <p class="pill" data-i18n="ot.calc.kicker">Preventivo veloce</p>
+          <h2 data-i18n="ot.calc.title">Quanto costa OneTrack per la tua flotta?</h2>
+          <p data-i18n="ot.calc.sub">Scegli il piano e il numero di veicoli: vedi subito il canone mensile e il costo di attivazione. Poi inviaci il preventivo su WhatsApp.</p>
+        </div>
+        <form class="calc__box reveal" id="otCalc" onsubmit="return false">
+          <fieldset class="calc__plans">
+            <legend data-i18n="ot.calc.plan">Piano</legend>
+            <label class="chip"><input type="radio" name="plan" value="basic" data-price="9.90" data-hw-min="199" data-hw-max="229" data-name="Basic"><span>Basic</span></label>
+            <label class="chip"><input type="radio" name="plan" value="pro" data-price="14.90" data-hw-min="229" data-hw-max="269" data-name="Pro" checked><span>Pro</span></label>
+            <label class="chip"><input type="radio" name="plan" value="driver" data-price="19.90" data-hw-min="299" data-hw-max="329" data-name="Driver ID"><span>Driver ID</span></label>
+            <label class="chip"><input type="radio" name="plan" value="security" data-price="24.90" data-hw-min="349" data-hw-max="399" data-name="Security"><span>Security</span></label>
+          </fieldset>
+          <label class="calc__qty" for="otQty"><span data-i18n="ot.calc.qty">Numero di veicoli</span>
+            <span class="qty"><button type="button" class="qty__btn" data-step="-1" aria-label="−">−</button><input id="otQty" type="number" min="1" max="500" value="5" inputmode="numeric"><button type="button" class="qty__btn" data-step="1" aria-label="+">+</button></span>
+          </label>
+          <input class="calc__range" id="otRange" type="range" min="1" max="100" value="5" aria-label="Veicoli">
+          <div class="calc__out">
+            <div><span data-i18n="ot.calc.monthly">Canone mensile</span><b id="otMonthly">—</b></div>
+            <div><span data-i18n="ot.calc.setup">Attivazione (una tantum)</span><b id="otSetup">—</b></div>
+            <div><span data-i18n="ot.calc.year">Totale primo anno</span><b id="otYear">—</b></div>
+          </div>
+          <p class="calc__note" data-i18n="ot.calc.note">Stima indicativa, IVA esclusa. Il preventivo definitivo dipende dal tipo di veicolo e dall'installazione.</p>
+          <a class="btn btn--wa" id="otSend" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span data-i18n="ot.calc.send">Invia il preventivo su WhatsApp</span></a>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ COME FUNZIONA ============ -->
+    <section class="section" id="ot-passi">
+      <div class="wrap">
+        <header class="section__head reveal">
+          <p class="pill" data-i18n="steps.kicker">Come funziona</p>
+          <h2 data-i18n="ot.steps.title">Dal preventivo alla mappa in pochi giorni</h2>
+        </header>
+        <ol class="steps steps--line">
+          <li class="step reveal"><span class="step__n">1</span><h3 data-i18n="ot.steps.s1t"></h3><p data-i18n="ot.steps.s1d"></p></li>
+          <li class="step reveal"><span class="step__n">2</span><h3 data-i18n="ot.steps.s2t"></h3><p data-i18n="ot.steps.s2d"></p></li>
+          <li class="step reveal"><span class="step__n">3</span><h3 data-i18n="ot.steps.s3t"></h3><p data-i18n="ot.steps.s3d"></p></li>
+        </ol>
+        <div class="hw reveal">
+          <span class="tile__icon"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg></span>
+          <div><h3 data-i18n="ot.hwInfo.title">Il dispositivo</h3><p data-i18n="ot.hwInfo.text">Usiamo dispositivi GPS professionali di riferimento Teltonika, installati in modo discreto sul veicolo. I prezzi indicati si basano su dispositivi 2G; la versione 4G è disponibile su preventivo.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ONETRACK ============ -->
+    <section class="section section--tint" id="ot-faq">
+      <div class="wrap faq">
+        <header class="faq__head reveal">
+          <p class="pill" data-i18n="faq.kicker">Domande frequenti</p>
+          <h2 data-i18n="ot.faq.title">Domande su OneTrack</h2>
+          <p data-i18n="faq.sub">Se non trovi la risposta, scrivici su WhatsApp.</p>
+        </header>
+        <div class="faq__list reveal">
+          <details><summary data-i18n="ot.faq.q1"></summary><p data-i18n="ot.faq.a1"></p></details>
+          <details><summary data-i18n="ot.faq.q2"></summary><p data-i18n="ot.faq.a2"></p></details>
+          <details><summary data-i18n="ot.faq.q3"></summary><p data-i18n="ot.faq.a3"></p></details>
+          <details><summary data-i18n="ot.faq.q4"></summary><p data-i18n="ot.faq.a4"></p></details>
+          <details><summary data-i18n="ot.faq.q5"></summary><p data-i18n="ot.faq.a5"></p></details>
+          <details><summary data-i18n="ot.faq.q6"></summary><p data-i18n="ot.faq.a6"></p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA FINAL ============ -->
+    <section class="final">
+      <div class="wrap">
+        <div class="final__box reveal">
+          <div class="cloud cloud--final" aria-hidden="true"></div>
+          <h2 data-i18n="final.title">Pronto a prendere il controllo della tua flotta?</h2>
+          <p data-i18n="final.sub">Scrivici oggi: ti mostriamo la piattaforma con i dati della tua azienda.</p>
+          <div class="final__cta">
+            <a href="/contatti" class="btn btn--light" data-i18n="final.cta1">Richiedi una demo</a>
+            <a class="btn btn--outline-light js-wa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/layout.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -48,7 +48,7 @@ const CONFIG = {
       `<a data-net="${id}" ${id === "whatsapp" ? 'class="js-wa"' : `href="${url}"`} ${/^https?:/.test(url || "https") && id !== "email" ? 'target="_blank" rel="noopener"' : ""} aria-label="${label}" title="${label}"><svg viewBox="0 0 24 24"><use href="#i-${id}"/></svg></a>`
     ).join("");
   });
-  $("#year").textContent = new Date().getFullYear();
+  const yearEl = $("#year"); if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   /* ---------- i18n ---------- */
   let lang = CONFIG.DEFAULT_LANG;
@@ -69,7 +69,11 @@ const CONFIG = {
         if (typeof v === "string") el.textContent = v;
       });
       $(".lang__cur").textContent = lang.toUpperCase();
-      $$(".js-wa").forEach(a => a.href = waHref(a.dataset.member && CONFIG.TEAM_WHATSAPP[a.dataset.member], a.dataset.member));
+      $$(".js-wa").forEach(a => {
+        if (a.dataset.waPlan) a.href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(t("wa.plan").replace("{plan}", a.dataset.waPlan))}`;
+        else a.href = waHref(a.dataset.member && CONFIG.TEAM_WHATSAPP[a.dataset.member], a.dataset.member);
+      });
+      updateCalc();
       $$("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", t(el.dataset.i18nAria)));
       $$("[data-lang]").forEach(b => b.setAttribute("aria-current", b.dataset.lang === lang));
       startRotator();
@@ -124,6 +128,7 @@ const CONFIG = {
   function startRotator() {
     clearTimeout(rotTimer);
     const el = $("#rotator"), words = t("hero.rot");
+    if (!el) return;
     let w = 0, i = 0, deleting = false;
     if (reduced) { el.textContent = words[0]; return; }
     (function tick() {
@@ -148,13 +153,6 @@ const CONFIG = {
     burger.setAttribute("aria-expanded", open);
   });
   $$("a", menu).forEach(a => a.addEventListener("click", () => { menu.classList.remove("open"); burger.setAttribute("aria-expanded", false); }));
-
-  // active link
-  const links = $$(".nav__links a");
-  const spy = new IntersectionObserver(entries => entries.forEach(en => {
-    if (en.isIntersecting) links.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + en.target.id));
-  }), { rootMargin: "-45% 0px -50% 0px" });
-  ["inicio", "servicios", "plataforma", "nosotros", "contacto"].forEach(id => { const s = document.getElementById(id); s && spy.observe(s); });
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(entries => entries.forEach(en => {
@@ -230,7 +228,7 @@ const CONFIG = {
 
   /* ---------- Live map clock + speed ---------- */
   const clock = $("#clock"), speed = $("#speed");
-  setInterval(() => {
+  if (clock) setInterval(() => {
     clock.textContent = new Date().toLocaleTimeString("it-IT");
     speed.textContent = 55 + Math.round(Math.random() * 20);
   }, 1000);
@@ -240,7 +238,7 @@ const CONFIG = {
   if (ct) ct.innerHTML += ct.innerHTML.replace(/<li /g, '<li aria-hidden="true" ');
 
   /* ---------- Contact form → email ---------- */
-  $("#contactForm").addEventListener("submit", e => {
+  $("#contactForm")?.addEventListener("submit", e => {
     e.preventDefault();
     const f = new FormData(e.target);
     const body = [
@@ -253,6 +251,34 @@ const CONFIG = {
     ].join("\n");
     location.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${encodeURIComponent(t("contact.subject"))}&body=${encodeURIComponent(body)}`;
   });
+
+  /* ---------- Calculadora OneTrack ---------- */
+  function updateCalc() {
+    const form = $("#otCalc"); if (!form) return;
+    const opt = $('input[name="plan"]:checked', form);
+    const qty = $("#otQty"), range = $("#otRange");
+    let n = Math.max(1, Math.min(500, parseInt(qty.value, 10) || 1));
+    const price = +opt.dataset.price, hwMin = +opt.dataset.hwMin, hwMax = +opt.dataset.hwMax;
+    const eur = v => new Intl.NumberFormat(lang === "en" ? "en-IE" : lang === "es" ? "es-ES" : "it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+    const monthly = price * n, setupMin = hwMin * n, setupMax = hwMax * n;
+    const setup = `${eur(setupMin)} – ${eur(setupMax)}`;
+    $("#otMonthly").textContent = eur(monthly);
+    $("#otSetup").textContent = setup;
+    $("#otYear").textContent = `${eur(monthly * 12 + setupMin)} – ${eur(monthly * 12 + setupMax)}`;
+    const msg = t("ot.calc.msg").replace("{plan}", opt.dataset.name).replace("{n}", n).replace("{monthly}", eur(monthly)).replace("{setup}", setup);
+    $("#otSend").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
+  }
+  const calc = $("#otCalc");
+  if (calc) {
+    const qty = $("#otQty"), range = $("#otRange");
+    calc.addEventListener("change", updateCalc);
+    qty.addEventListener("input", () => { range.value = Math.min(100, qty.value || 1); updateCalc(); });
+    range.addEventListener("input", () => { qty.value = range.value; updateCalc(); });
+    $$(".qty__btn", calc).forEach(b => b.addEventListener("click", () => {
+      qty.value = Math.max(1, Math.min(500, (parseInt(qty.value, 10) || 1) + +b.dataset.step));
+      range.value = Math.min(100, qty.value); updateCalc();
+    }));
+  }
 
   /* ---------- Background network (canvas) ---------- */
   const cv = $("#net"), ctx = cv.getContext("2d");
