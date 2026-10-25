@@ -263,8 +263,7 @@ const CONFIG = {
     const monthly = price * n, setupMin = hwMin * n, setupMax = hwMax * n;
     const setup = `${eur(setupMin)} – ${eur(setupMax)}`;
     $("#otMonthly").textContent = eur(monthly);
-    $("#otSetup").textContent = setup;
-    $("#otYear").textContent = `${eur(monthly * 12 + setupMin)} – ${eur(monthly * 12 + setupMax)}`;
+    $("#otHwLine").textContent = t("ot.calc.hwLine").replace("{setup}", setup);
     const msg = t("ot.calc.msg").replace("{plan}", opt.dataset.name).replace("{n}", n).replace("{monthly}", eur(monthly)).replace("{setup}", setup);
     $("#otSend").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${encodeURIComponent(msg)}`;
   }

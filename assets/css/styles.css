@@ -589,7 +589,8 @@ body.switching [data-i18n]{opacity:0}
 .calc__out span{display:block;font-size:.8rem;color:var(--muted);font-weight:600}
 .calc__out b{display:block;font-family:var(--font-head);font-size:1.15rem;font-variant-numeric:tabular-nums;margin-top:4px;overflow-wrap:anywhere}
 .calc__out div:first-child b{font-size:2rem;margin:0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.calc__note{color:var(--muted);font-size:.85rem}
+.calc__note{color:var(--muted);font-size:.8rem}
+.calc__hw{color:var(--muted);font-size:.85rem;margin-top:-6px}
 
 /* Pasos en línea + dispositivo */
 .steps--line .step{background:var(--surface)}
