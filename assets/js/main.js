@@ -12,9 +12,12 @@ const CONFIG = {
     en: "393342016624"                    //   Mauro Agostinelli · atención en inglés
   },
   SOCIAL: {                               // ← pega aquí los links de las redes
-    facebook: "#",
-    instagram: "#",
+    facebook: "https://www.facebook.com/profile.php?id=61595689271383",
+    instagram: "https://www.instagram.com/onesystec/",
     youtube: "#"
+  },
+  APPS: {                                 // ← link de cada app del ecosistema (vacío = va al login)
+    hub: "", gamonal: "", remot: "", express: "", salute: "", asysten: "", nakama: "", onetrack: "/onetrack"
   },
   DEFAULT_LANG: "it",                     // idioma por defecto: italiano
   DEFAULT_THEME: "day",                   // day · night
@@ -34,12 +37,14 @@ const CONFIG = {
     if (/^https?:/.test(CONFIG.LOGIN_URL)) a.rel = "noopener";
   });
   $$(".js-mail").forEach(a => a.href = "mailto:" + CONFIG.CONTACT_EMAIL);
+  $$(".js-fb").forEach(a => a.href = CONFIG.SOCIAL.facebook);
+  $$(".js-ig").forEach(a => a.href = CONFIG.SOCIAL.instagram);
+  $$(".js-app").forEach(a => { const u = CONFIG.APPS[a.dataset.app]; a.href = u || CONFIG.LOGIN_URL; if (/^https?:/.test(a.href) && !a.href.startsWith(location.origin)) { a.target = "_blank"; a.rel = "noopener"; } });
   $$(".js-mail-text").forEach(el => el.textContent = CONFIG.CONTACT_EMAIL);
   $$(".js-phone-text").forEach(el => el.textContent = CONFIG.WHATSAPP_DISPLAY);
   const nets = [
     ["facebook", "Facebook", CONFIG.SOCIAL.facebook],
     ["instagram", "Instagram", CONFIG.SOCIAL.instagram],
-    ["youtube", "YouTube", CONFIG.SOCIAL.youtube],
     ["whatsapp", "WhatsApp", null],
     ["email", "Email", "mailto:" + CONFIG.CONTACT_EMAIL]
   ];

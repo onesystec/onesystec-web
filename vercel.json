@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/prezzi", "destination": "/onetrack", "permanent": false }
+  ]
 }
